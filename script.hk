@@ -1,2 +1,2 @@
 test = "Привет Мир!"
-print test;
+print test
