@@ -18,12 +18,20 @@ with open(script, 'r') as f:
         count = len(lexer)
 
         if lexer[0] == "output":
+            if defs == 4:
+                content += "                return " + lexer[1] + "\n"
+            if defs == 3:
+                content += "            return " + lexer[1] + "\n"
             if defs == 2:
                 content += "        return " + lexer[1] + "\n"
             else:
                 content += "return " + lexer[1] + "\n"
 
         if lexer[0] == "def":
+            if defs == 4:
+                content += "            def " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
+            if defs == 3:
+                content += "        def " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
             if defs == 2:
                 content += "    def " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
             else:
@@ -34,15 +42,28 @@ with open(script, 'r') as f:
             if lexer[0].find('(') != -1:
                 content += lexer[0]
             if lexer[0].find('}') != -1:
-                defs = 0
+                if defs == 1:
+                    defs = 0
                 if defs == 2:
-                    content += "    pass"
+                    defs = 1
+                if defs == 3:
+                    defs = 2
+                if defs == 4:
+                    defs = 3
+                if defs == 5:
+                    defs = 4
 
         if count > 1:
             if lexer[1] == "=":
                 string = ""
                 for x in range(count):
                     string += lexer[x]+" ";
+                if defs == 5:
+                    content += "                    "+string.replace(";", "")+"\n"
+                if defs == 4:
+                    content += "                "+string.replace(";", "")+"\n"
+                if defs == 3:
+                    content += "            "+string.replace(";", "")+"\n"
                 if defs == 2:
                     content += "        "+string.replace(";", "")+"\n"
                 if defs == 1:
@@ -51,6 +72,12 @@ with open(script, 'r') as f:
                     content += string.replace(";", "") + "\n"
 
         if lexer[0] == "print":
+            if defs == 5:
+                content += "                    print(" + lexer[1].replace("\n", "") + ")\n"
+            if defs == 4:
+                content += "                print(" + lexer[1].replace("\n", "") + ")\n"
+            if defs == 3:
+                content += "            print(" + lexer[1].replace("\n", "") + ")\n"
             if defs == 2:
                 content += "        print(" + lexer[1].replace("\n", "") + ")\n"
             if defs == 1:
@@ -63,6 +90,12 @@ with open(script, 'r') as f:
             content += "class " + lexer[1].replace("\n", "") + ""+ lexer[2].replace("{", ":") + "\n"
 
         if lexer[0] == "input":
+            if defs == 5:
+                content += "                    " + lexer[1].replace("\n", "") + " = input()\n"
+            if defs == 4:
+                content += "                " + lexer[1].replace("\n", "") + " = input()\n"
+            if defs == 3:
+                content += "            " + lexer[1].replace("\n", "") + " = input()\n"
             if defs == 2:
                 content += "        " + lexer[1].replace("\n", "") + " = input()\n"
             if defs == 1:
@@ -71,7 +104,15 @@ with open(script, 'r') as f:
                 content += "" + lexer[1].replace("\n", "") + " = input()\n"
 
         if lexer[0] == "if":
+            if defs == 5:
+                content += "                    if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
+            if defs == 4:
+                content += "                if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
+            if defs == 3:
+                defs = 4
+                content += "            if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
             if defs == 2:
+                defs = 3
                 content += "        if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
             if defs == 1:
                 defs = 2
@@ -81,12 +122,19 @@ with open(script, 'r') as f:
                 content += "if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
 
         if lexer[0] == "for":
+            if defs == 4:
+                defs = 5
+                content += "                for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
+            if defs == 3:
+                defs = 4
+                content += "            for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
             if defs == 2:
+                defs = 3
                 content += "        for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
             if defs == 1:
                 defs = 2
                 content += "    for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
-            else:
+            if defs == 0:
                 defs = 1
                 content += "for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
 
