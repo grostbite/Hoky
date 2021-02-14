@@ -72,10 +72,23 @@ with open(script, 'r') as f:
 
         if lexer[0] == "if":
             if defs == 2:
+                content += "        if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
+            if defs == 1:
+                defs = 2
                 content += "    if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
-            else:
+            if defs == 0:
                 defs = 1
                 content += "if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
+
+        if lexer[0] == "for":
+            if defs == 2:
+                content += "        for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
+            if defs == 1:
+                defs = 2
+                content += "    for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
+            else:
+                defs = 1
+                content += "for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
 
     file = open("rutime.py", "w")
     file.write(content)
