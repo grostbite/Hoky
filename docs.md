@@ -135,9 +135,9 @@ HVM for Python - это свободная реализация языка пр�
 
 > def test() {
 
-> vars = "Строка";
+> vars = "Строка"
 
-> output vars;
+> output vars
 
 > }
 
@@ -153,12 +153,12 @@ HVM for Python - это свободная реализация языка пр�
 
 > tesst = "Возврат строки";
 
-> output tesst;
+> output tesst
 
 > }
 
 > }
 
-> text = Main();
+> text = Main()
 
 > print text.test()
