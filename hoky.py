@@ -18,6 +18,8 @@ with open(script, 'r') as f:
         count = len(lexer)
 
         if lexer[0] == "output":
+            if defs == 5:
+                content += "                    return " + lexer[1] + "\n"
             if defs == 4:
                 content += "                return " + lexer[1] + "\n"
             if defs == 3:
@@ -28,6 +30,8 @@ with open(script, 'r') as f:
                 content += "return " + lexer[1] + "\n"
 
         if lexer[0] == "def":
+            if defs == 5:
+                content += "                def " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
             if defs == 4:
                 content += "            def " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
             if defs == 3:
