@@ -62,6 +62,14 @@ with open(script, 'r') as f:
             defs = 2
             content += "class " + lexer[1].replace("\n", "") + ""+ lexer[2].replace("{", ":") + "\n"
 
+        if lexer[0] == "input":
+            if defs == 2:
+                content += "        " + lexer[1].replace("\n", "") + " = input()\n"
+            if defs == 1:
+                content += "    " + lexer[1].replace("\n", "") + " = input()\n"
+            if defs == 0:
+                content += "" + lexer[1].replace("\n", "") + " = input()\n"
+
 
     file = open("rutime.py", "w")
     file.write(content)
