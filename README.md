@@ -10,6 +10,8 @@ python hoky.py script.hk
 
 ## Resource
 
+* [Documentation](https://github.com/grostbite/Hoky/blob/main/docs.md)
+
 * [Official community](https://vk.com/hokylang)
 
 * [Official Web Site](http://hokylang.ru)
