@@ -70,6 +70,12 @@ with open(script, 'r') as f:
             if defs == 0:
                 content += "" + lexer[1].replace("\n", "") + " = input()\n"
 
+        if lexer[0] == "if":
+            if defs == 2:
+                content += "    if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
+            else:
+                defs = 1
+                content += "if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
 
     file = open("rutime.py", "w")
     file.write(content)
