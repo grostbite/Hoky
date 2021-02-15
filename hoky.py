@@ -92,6 +92,22 @@ class Hoky:
                             content += "    "+string.replace(";", "")+"\n"
                         if defs == 0:
                             content += string.replace(";", "") + "\n"
+                    if lexer[1] == "+=":
+                        string = ""
+                        for x in range(count):
+                            string += lexer[x]+" "
+                        if defs == 5:
+                            content += "                    "+string.replace(";", "")+"\n"
+                        if defs == 4:
+                            content += "                "+string.replace(";", "")+"\n"
+                        if defs == 3:
+                            content += "            "+string.replace(";", "")+"\n"
+                        if defs == 2:
+                            content += "        "+string.replace(";", "")+"\n"
+                        if defs == 1:
+                            content += "    "+string.replace(";", "")+"\n"
+                        if defs == 0:
+                            content += string.replace(";", "") + "\n"
 
                 if lexer[0] == comnd[2]:
                     if defs == 5:
@@ -144,6 +160,8 @@ class Hoky:
                         content += pycmnd[5]+" " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
 
                 if lexer[0] == comnd[6]:
+                    if defs == 5:
+                        content += "                    "+pycmnd[6]+" " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
                     if defs == 4:
                         defs = 5
                         content += "                "+pycmnd[6]+" " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
@@ -170,7 +188,7 @@ class Hoky:
 
         if __script__ == "-ver":
 
-            print("HVM for Python 0.0.0.9")
+            print("HVM for Python 0.0.1.0")
 
         else:
 
