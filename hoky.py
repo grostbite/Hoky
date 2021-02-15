@@ -60,7 +60,19 @@ class Hoky:
 
                 if lexer[0] == lexer[0]:
                     if lexer[0].find('(') != -1:
-                        content += lexer[0]
+                        if defs == 5:
+                            content += "                    " + lexer[0] + "\n"
+                        if defs == 4:
+                            content += "                " + lexer[0] + "\n"
+                        if defs == 3:
+                            content += "            " + lexer[0] + "\n"
+                        if defs == 2:
+                            content += "        " + lexer[0] + "\n"
+                        if defs == 1:
+                            content += "    " + lexer[0] + "\n"
+                        if defs == 0:
+                            content += lexer[0] + "\n"
+
                     if lexer[0].find('}') != -1:
                         if defs == 0:
                             defs = 0
