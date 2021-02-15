@@ -79,7 +79,7 @@ class Hoky:
                     if lexer[1] == "=":
                         string = ""
                         for x in range(count):
-                            string += lexer[x]+" ";
+                            string += lexer[x]+" "
                         if defs == 5:
                             content += "                    "+string.replace(";", "")+"\n"
                         if defs == 4:
