@@ -158,10 +158,22 @@ def hk_lexer(__script__):
                     defs = 1
                     content += pycmnd[6]+" " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
 
+        return content
+
+def hk_run():
+
+    if __script__ == "-ver":
+
+        print("HVM for Python 0.0.0.7")
+
+    else:
+
+        script = hk_lexer(__script__)
+
         file = open("rutime.py", "w")
-        file.write(content)
+        file.write(script)
         file.close()
 
         import rutime
 
-hk_lexer(__script__)
+hk_run()
