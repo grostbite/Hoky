@@ -3,157 +3,165 @@
 
 import sys
 
-content = ""
+__script__ = sys.argv[1]
 
-defs = 0
+def hk_lexer(__script__):
 
-script = sys.argv[1]
+    comnd = "output|def|print|pclass|input|if|for".split("|")
 
-with open(script, 'r') as f:
+    pycmnd = "return|def|print|class|input()|if|for".split("|")
 
-    for line in f:
+    content = ""
 
-        lexer = line.split(" ")
+    defs = 0
 
-        count = len(lexer)
+    with open(__script__, 'r') as f:
 
-        if lexer[0] == "output":
-            if defs == 5:
-                content += "                    return " + lexer[1] + "\n"
-            if defs == 4:
-                content += "                return " + lexer[1] + "\n"
-            if defs == 3:
-                content += "            return " + lexer[1] + "\n"
-            if defs == 2:
-                content += "        return " + lexer[1] + "\n"
-            if defs == 1:
-                content += "    return " + lexer[1] + "\n"
-            if defs == 0:
-                content += "return " + lexer[1] + "\n"
+        for line in f:
 
-        if lexer[0] == "def":
-            if defs == 5:
-                content += "                    def " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
-            if defs == 4:
-                defs = 5
-                content += "                def " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
-            if defs == 3:
-                defs = 4
-                content += "            def " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
-            if defs == 2:
-                defs =3
-                content += "        def " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
-            if defs == 1:
-                defs = 2
-                content += "    def " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
-            if defs == 0:
-                defs = 1
-                content += "def " + lexer[1] + "" + lexer[2].replace("{", ":") + "\n"
+            lexer = line.split(" ")
 
-        if lexer[0] == lexer[0]:
-            if lexer[0].find('(') != -1:
-                content += lexer[0]
-            if lexer[0].find('}') != -1:
-                if defs == 0:
-                    defs = 0
-                if defs == 1:
-                    defs = 0
-                if defs == 2:
-                    defs = 1
-                if defs == 3:
-                    defs = 2
-                if defs == 4:
-                    defs = 3
+            count = len(lexer)
+
+            if lexer[0] == comnd[0]:
                 if defs == 5:
+                    content += "                    "+pycmnd[0]+" " + lexer[1] + "\n"
+                if defs == 4:
+                    content += "                "+pycmnd[0]+" " + lexer[1] + "\n"
+                if defs == 3:
+                    content += "            "+pycmnd[0]+" " + lexer[1] + "\n"
+                if defs == 2:
+                    content += "        "+pycmnd[0]+" " + lexer[1] + "\n"
+                if defs == 1:
+                    content += "    "+pycmnd[0]+" " + lexer[1] + "\n"
+                if defs == 0:
+                    content += pycmnd[0]+" " + lexer[1] + "\n"
+
+            if lexer[0] == comnd[1]:
+                if defs == 5:
+                    content += "                    "+pycmnd[1]+" " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
+                if defs == 4:
+                    defs = 5
+                    content += "                "+pycmnd[1]+" " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
+                if defs == 3:
                     defs = 4
-
-        if count > 1:
-            if lexer[1] == "=":
-                string = ""
-                for x in range(count):
-                    string += lexer[x]+" ";
-                if defs == 5:
-                    content += "                    "+string.replace(";", "")+"\n"
-                if defs == 4:
-                    content += "                "+string.replace(";", "")+"\n"
-                if defs == 3:
-                    content += "            "+string.replace(";", "")+"\n"
+                    content += "            "+pycmnd[1]+" " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
                 if defs == 2:
-                    content += "        "+string.replace(";", "")+"\n"
+                    defs =3
+                    content += "        "+pycmnd[1]+" " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
                 if defs == 1:
-                    content += "    "+string.replace(";", "")+"\n"
+                    defs = 2
+                    content += "    "+pycmnd[1]+" " + lexer[1].replace("()","(self)") + ""+ lexer[2].replace("{", ":") + "\n"
                 if defs == 0:
-                    content += string.replace(";", "") + "\n"
+                    defs = 1
+                    content += pycmnd[1]+" " + lexer[1] + "" + lexer[2].replace("{", ":") + "\n"
 
-        if lexer[0] == "print":
-            if defs == 5:
-                content += "                    print(" + lexer[1].replace("\n", "") + ")\n"
-            if defs == 4:
-                content += "                print(" + lexer[1].replace("\n", "") + ")\n"
-            if defs == 3:
-                content += "            print(" + lexer[1].replace("\n", "") + ")\n"
-            if defs == 2:
-                content += "        print(" + lexer[1].replace("\n", "") + ")\n"
-            if defs == 1:
-                content += "    print(" + lexer[1].replace("\n", "") + ")\n"
-            if defs == 0:
-                content += "print(" + lexer[1].replace("\n", "") + ")\n"
+            if lexer[0] == lexer[0]:
+                if lexer[0].find('(') != -1:
+                    content += lexer[0]
+                if lexer[0].find('}') != -1:
+                    if defs == 0:
+                        defs = 0
+                    if defs == 1:
+                        defs = 0
+                    if defs == 2:
+                        defs = 1
+                    if defs == 3:
+                        defs = 2
+                    if defs == 4:
+                        defs = 3
+                    if defs == 5:
+                        defs = 4
 
-        if lexer[0] == "pclass":
-            defs = 1
-            content += "class " + lexer[1].replace("\n", "") + ""+ lexer[2].replace("{", ":") + "\n"
+            if count > 1:
+                if lexer[1] == "=":
+                    string = ""
+                    for x in range(count):
+                        string += lexer[x]+" ";
+                    if defs == 5:
+                        content += "                    "+string.replace(";", "")+"\n"
+                    if defs == 4:
+                        content += "                "+string.replace(";", "")+"\n"
+                    if defs == 3:
+                        content += "            "+string.replace(";", "")+"\n"
+                    if defs == 2:
+                        content += "        "+string.replace(";", "")+"\n"
+                    if defs == 1:
+                        content += "    "+string.replace(";", "")+"\n"
+                    if defs == 0:
+                        content += string.replace(";", "") + "\n"
 
-        if lexer[0] == "input":
-            if defs == 5:
-                content += "                    " + lexer[1].replace("\n", "") + " = input()\n"
-            if defs == 4:
-                content += "                " + lexer[1].replace("\n", "") + " = input()\n"
-            if defs == 3:
-                content += "            " + lexer[1].replace("\n", "") + " = input()\n"
-            if defs == 2:
-                content += "        " + lexer[1].replace("\n", "") + " = input()\n"
-            if defs == 1:
-                content += "    " + lexer[1].replace("\n", "") + " = input()\n"
-            if defs == 0:
-                content += "" + lexer[1].replace("\n", "") + " = input()\n"
+            if lexer[0] == comnd[2]:
+                if defs == 5:
+                    content += "                    "+pycmnd[2]+"(" + lexer[1].replace("\n", "") + ")\n"
+                if defs == 4:
+                    content += "                "+pycmnd[2]+"(" + lexer[1].replace("\n", "") + ")\n"
+                if defs == 3:
+                    content += "            "+pycmnd[2]+"(" + lexer[1].replace("\n", "") + ")\n"
+                if defs == 2:
+                    content += "        "+pycmnd[2]+"(" + lexer[1].replace("\n", "") + ")\n"
+                if defs == 1:
+                    content += "    "+pycmnd[2]+"(" + lexer[1].replace("\n", "") + ")\n"
+                if defs == 0:
+                    content += pycmnd[2]+"(" + lexer[1].replace("\n", "") + ")\n"
 
-        if lexer[0] == "if":
-            if defs == 5:
-                content += "                    if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
-            if defs == 4:
-                content += "                if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
-            if defs == 3:
-                defs = 4
-                content += "            if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
-            if defs == 2:
-                defs = 3
-                content += "        if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
-            if defs == 1:
-                defs = 2
-                content += "    if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
-            if defs == 0:
+            if lexer[0] == comnd[3]:
                 defs = 1
-                content += "if " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
+                content += pycmnd[3]+" " + lexer[1].replace("\n", "") + ""+ lexer[2].replace("{", ":") + "\n"
 
-        if lexer[0] == "for":
-            if defs == 4:
-                defs = 5
-                content += "                for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
-            if defs == 3:
-                defs = 4
-                content += "            for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
-            if defs == 2:
-                defs = 3
-                content += "        for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
-            if defs == 1:
-                defs = 2
-                content += "    for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
-            if defs == 0:
-                defs = 1
-                content += "for " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
+            if lexer[0] == comnd[4]:
+                if defs == 5:
+                    content += "                    " + lexer[1].replace("\n", "") + " = "+pycmnd[4]+"\n"
+                if defs == 4:
+                    content += "                " + lexer[1].replace("\n", "") + " = "+pycmnd[4]+"\n"
+                if defs == 3:
+                    content += "            " + lexer[1].replace("\n", "") + " = "+pycmnd[4]+"\n"
+                if defs == 2:
+                    content += "        " + lexer[1].replace("\n", "") + " = "+pycmnd[4]+"\n"
+                if defs == 1:
+                    content += "    " + lexer[1].replace("\n", "") + " = "+pycmnd[4]+"\n"
+                if defs == 0:
+                    content += "" + lexer[1].replace("\n", "") + " = "+pycmnd[4]+"\n"
 
-    file = open("rutime.py", "w")
-    file.write(content)
-    file.close()
+            if lexer[0] == comnd[5]:
+                if defs == 5:
+                    content += "                    "+pycmnd[5]+" " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
+                if defs == 4:
+                    content += "                "+pycmnd[5]+" " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
+                if defs == 3:
+                    defs = 4
+                    content += "            "+pycmnd[5]+" " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
+                if defs == 2:
+                    defs = 3
+                    content += "        "+pycmnd[5]+" " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
+                if defs == 1:
+                    defs = 2
+                    content += "    "+pycmnd[5]+" " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
+                if defs == 0:
+                    defs = 1
+                    content += pycmnd[5]+" " + lexer[1] + " " + lexer[2] + " " + lexer[3] + ""+ lexer[4].replace("{", ":") + "\n"
 
-    import rutime
+            if lexer[0] == comnd[6]:
+                if defs == 4:
+                    defs = 5
+                    content += "                "+pycmnd[6]+" " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
+                if defs == 3:
+                    defs = 4
+                    content += "            "+pycmnd[6]+" " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
+                if defs == 2:
+                    defs = 3
+                    content += "        "+pycmnd[6]+" " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
+                if defs == 1:
+                    defs = 2
+                    content += "    "+pycmnd[6]+" " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
+                if defs == 0:
+                    defs = 1
+                    content += pycmnd[6]+" " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
+
+        file = open("rutime.py", "w")
+        file.write(content)
+        file.close()
+
+        import rutime
+
+hk_lexer(__script__)
