@@ -9,9 +9,9 @@ class Hoky:
 
     def hk_lexer(__script__):
 
-        comnd = "output|def|print|pclass|input|if|for".split("|")
+        comnd = "output|def|print|pclass|input|if|for|import".split("|")
 
-        pycmnd = "return|def|print|class|input()|if|for".split("|")
+        pycmnd = "return|def|print|class|input()|if|for|import".split("|")
 
         content = ""
 
@@ -160,13 +160,17 @@ class Hoky:
                         defs = 1
                         content += pycmnd[6]+" " + lexer[5] + " in range(" + lexer[3] + ")"+ lexer[6].replace("{", ":") + "\n"
 
+                if lexer[0] == comnd[7]:
+                    scripts = Hoky.hk_lexer(lexer[1].replace("\n","") + ".hk")
+                    content += scripts
+
             return content
 
     def hk_run(self):
 
         if __script__ == "-ver":
 
-            print("HVM for Python 0.0.0.8")
+            print("HVM for Python 0.0.0.9")
 
         else:
 
