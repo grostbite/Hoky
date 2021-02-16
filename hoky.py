@@ -23,7 +23,7 @@ class Hoky:
 
             for line in f:
 
-                lexer = line.split(" ")
+                lexer = line.lstrip().split(" ")
 
                 count = len(lexer)
 
@@ -89,7 +89,7 @@ class Hoky:
 
         if __script__ == "-ver":
 
-            print("HVM for Python 0.0.1.2")
+            print("HVM for Python 0.0.1.3")
 
         else:
 
