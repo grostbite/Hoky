@@ -49,7 +49,7 @@ class Hoky:
                         string = ""
                         for x in range(count):
                             string += lexer[x] + " "
-                        content += f"{string.replace(';', '')}\n"
+                        content += f"{defs * '    '}{string.replace(';', '')}\n"
 
                     elif lexer[1] == "+=":
                         string = ""
@@ -89,7 +89,7 @@ class Hoky:
 
         if __script__ == "-ver":
 
-            print("HVM for Python 0.0.1.1")
+            print("HVM for Python 0.0.1.2")
 
         else:
 
