@@ -11,9 +11,9 @@ class Hoky:
 
     def hk_lexer(__script__):
 
-        comnd = "output|def|print|pclass|input|if|for|import".split("|")
+        comnd = "output|def|print|pclass|input|if|for|import|readline".split("|")
 
-        pycmnd = "return|def|print|class|input()|if|for|import".split("|")
+        pycmnd = "return|def|print|class|input()|if|for|import|with".split("|")
 
         content = ""
 
@@ -82,6 +82,11 @@ class Hoky:
                 if lexer[0] == comnd[7]:
                     scripts = Hoky.hk_lexer(lexer[1].replace("\n", "") + ".hk")
                     content += scripts
+
+                if lexer[0] == comnd[8]:
+                    content += f"{defs * '    '}{pycmnd[8]} open('{lexer[3]}', 'r') as {lexer[1]}{lexer[6].replace('{', ':')}\n    for {lexer[5]} in {lexer[1]}:\n\n"
+                    if defs < 5:
+                        defs += 2
 
             return content
 
