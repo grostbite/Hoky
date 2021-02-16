@@ -79,11 +79,11 @@ class Hoky:
                     if defs < 5:
                         defs += 1
 
-                if lexer[0] == comnd[7]:
+                elif lexer[0] == comnd[7]:
                     scripts = Hoky.hk_lexer(lexer[1].replace("\n", "") + ".hk")
                     content += scripts
 
-                if lexer[0] == comnd[8]:
+                elif lexer[0] == comnd[8]:
                     content += f"{defs * '    '}{pycmnd[8]} open('{lexer[3]}', 'r') as {lexer[1]}{lexer[6].replace('{', ':')}\n    for {lexer[5]} in {lexer[1]}:\n\n"
                     if defs < 5:
                         defs += 2
