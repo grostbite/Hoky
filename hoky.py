@@ -6,6 +6,7 @@ import sys
 
 __script__ = sys.argv[1]
 
+
 class Hoky:
 
     def hk_lexer(__script__):
@@ -27,18 +28,18 @@ class Hoky:
                 count = len(lexer)
 
                 if lexer[0] == comnd[0]:
-                    content += f"{defs*'    '}{pycmnd[0]} {lexer[1]}\n"
+                    content += f"{defs * '    '}{pycmnd[0]} {lexer[1]}\n"
 
                 elif lexer[0] == comnd[1]:
-                    content += f"{defs*'    '}{pycmnd[1]} {lexer[1]}{lexer[2].replace('{',':')}\n"
+                    content += f"{defs * '    '}{pycmnd[1]} {lexer[1]}{lexer[2].replace('{', ':')}\n"
                     if defs < 4 and defs > 0:
                         defs += 1
                     elif defs == 0:
                         defs = 1
-                    
+
                 elif lexer[0] == lexer[0]:
                     if lexer[0].find('(') != -1:
-                        content += f"{defs*'    '}{lexer[0]}\n"
+                        content += f"{defs * '    '}{lexer[0]}\n"
                     elif lexer[0].find('}') != -1:
                         if defs > 0:
                             defs -= 1
@@ -47,39 +48,39 @@ class Hoky:
                     if lexer[1] == "=":
                         string = ""
                         for x in range(count):
-                            string += lexer[x]+" "
-                        content += f"{string.replace(';','')}\n"
-                        
+                            string += lexer[x] + " "
+                        content += f"{string.replace(';', '')}\n"
+
                     elif lexer[1] == "+=":
                         string = ""
                         for x in range(count):
-                            string += lexer[x]+" "
-                        content += f"{defs*'    '}{string.replace(';','')}\n"
+                            string += lexer[x] + " "
+                        content += f"{defs * '    '}{string.replace(';', '')}\n"
 
                 if lexer[0] == comnd[2]:
-                    content += "{}{}({})\n".format(defs*"    ",pycmnd[2],lexer[1].replace("\n",""))
+                    content += "{}{}({})\n".format(defs * "    ", pycmnd[2], lexer[1].replace("\n", ""))
 
                 elif lexer[0] == comnd[3]:
                     defs = 1
-                    content += pycmnd[3]+" " + lexer[1].replace("\n", "") + ""+ lexer[2].replace("{", ":") + "\n"
+                    content += pycmnd[3] + " " + lexer[1].replace("\n", "") + "" + lexer[2].replace("{", ":") + "\n"
 
                 elif lexer[0] == comnd[4]:
-                    content += "{}{} = {}\n".format(defs*'    ', lexer[1].replace("\n", ""), pycmnd[4])
+                    content += "{}{} = {}\n".format(defs * '    ', lexer[1].replace("\n", ""), pycmnd[4])
 
                 elif lexer[0] == comnd[5]:
-                    content += f"{defs*'    '}{pycmnd[5]} {lexer[1]} {lexer[2]} {lexer[3]} {lexer[4].replace('{',':')}\n"
+                    content += f"{defs * '    '}{pycmnd[5]} {lexer[1]} {lexer[2]} {lexer[3]} {lexer[4].replace('{', ':')}\n"
                     if defs < 4 and defs > 0:
                         defs += 1
                     elif defs == 0:
                         defs = 1
 
                 elif lexer[0] == comnd[6]:
-                    content += f"{defs*'    '}{pycmnd[6]} {lexer[5]} in range({lexer[3]}) {lexer[6].replace('{',':')}\n"
+                    content += f"{defs * '    '}{pycmnd[6]} {lexer[5]} in range({lexer[3]}){lexer[6].replace('{', ':')}\n"
                     if defs < 5:
-                        defs +=1
+                        defs += 1
 
                 if lexer[0] == comnd[7]:
-                    scripts = Hoky.hk_lexer(lexer[1].replace("\n","") + ".hk")
+                    scripts = Hoky.hk_lexer(lexer[1].replace("\n", "") + ".hk")
                     content += scripts
 
             return content
@@ -99,5 +100,6 @@ class Hoky:
             file.close()
 
             import rutime
+
 
 Hoky.hk_run(self="")
