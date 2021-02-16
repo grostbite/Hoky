@@ -19,6 +19,8 @@ class Hoky:
 
         defs = 0
 
+        defs2 = 0
+
         with open(__script__, 'r') as f:
 
             for line in f:
@@ -39,8 +41,12 @@ class Hoky:
 
                 elif lexer[0] == lexer[0]:
                     if lexer[0].find('(') != -1:
+                        if defs2 == 3:
+                            defs += 2
                         content += f"{defs * '    '}{lexer[0]}\n"
                     elif lexer[0].find('}') != -1:
+                        if defs2 > 0:
+                            defs -= 2
                         if defs > 0:
                             defs -= 1
 
@@ -62,6 +68,7 @@ class Hoky:
 
                 elif lexer[0] == comnd[3]:
                     defs = 1
+                    defs2 += 1
                     content += pycmnd[3] + " " + lexer[1].replace("\n", "") + "" + lexer[2].replace("{", ":") + "\n"
 
                 elif lexer[0] == comnd[4]:
@@ -84,9 +91,9 @@ class Hoky:
                     content += scripts
 
                 elif lexer[0] == comnd[8]:
-                    content += f"{defs * '    '}{pycmnd[8]} open('{lexer[3]}', 'r') as {lexer[1]}{lexer[6].replace('{', ':')}\n    for {lexer[5]} in {lexer[1]}:\n\n"
-                    if defs < 5:
-                        defs += 2
+                    defs2 += 2
+                    content += f"{defs * '    '}{pycmnd[8]} open('{lexer[3]}', 'r') as {lexer[1]}{lexer[6].replace('{', ':')}\n{defs2 * '    '}for {lexer[5]} in {lexer[1]}:\n\n"
+                    defs += 2
 
             return content
 
