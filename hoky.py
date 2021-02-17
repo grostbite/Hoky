@@ -34,7 +34,7 @@ class Hoky:
                 elif lexer[0] == comnd[1]:
                     defs2 += 1
                     content += f"{defs*'    '}{pycmnd[1]} {lexer[1]}{lexer[2].replace('{',':')}\n"
-                    if defs < 4 and defs > 0:
+                    if 4 > defs > 0:
                         defs += 1
                     elif defs == 0:
                         defs = 1
@@ -76,7 +76,7 @@ class Hoky:
 
                 elif lexer[0] == comnd[5]:
                     content += f"{defs*'    '}{pycmnd[5]} {lexer[1]} {lexer[2]} {lexer[3]} {lexer[4].replace('{',':')}\n"
-                    if defs < 4 and defs > 0:
+                    if 4 > defs > 0:
                         defs += 1
                     elif defs == 0:
                         defs = 1
@@ -99,7 +99,11 @@ class Hoky:
 
     def hk_run(self):
 
-        if __script__ == "-ver":
+        if __script__ == "--help" or __script__ == "-h":
+
+            print("How to run: python3 hoky.py file_name.hk")
+
+        if __script__ == "-version" or __script__ == "-v":
 
             print("HVM for Python 0.0.1.3+")
 
@@ -112,5 +116,6 @@ class Hoky:
             file.close()
 
             import rutime
+
 
 Hoky.hk_run(self="")
