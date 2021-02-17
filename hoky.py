@@ -99,7 +99,7 @@ class Hoky:
 
     def hk_run(self):
 
-        if __script__ == "--help":
+        if __script__ == "--help" or __script__ == "-h":
 
             print("How to run: python3 hoky.py file_name.hk")
 
