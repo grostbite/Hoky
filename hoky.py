@@ -7,12 +7,9 @@ import sys
 __script__ = sys.argv[1]
 
 class Hoky:
-
     def hk_lexer(__script__):
-
-        comnd = "output|def|print|pclass|input|if|for|import|readline".split("|")
-
-        pycmnd = "return|def|print|class|input()|if|for|import|with".split("|")
+		comnd = ["output", "def", "print", "pclass", "input", "if", "for", "import", "readline"]
+		pycmnd = ["return", "def", "print", "class", "input()", "if", "for", "import", "with"]
 
         content = ""
 
