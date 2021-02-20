@@ -1,18 +1,26 @@
 # Development by wencms@gmail.com (AmazetNT)
-# Special thanks to: googloldanil@gmail.com
+# Special thanks to:
+# googloldanil@gmail.com
 # HVM on Python
 
 import sys
 
 __script__ = sys.argv[1]
 
+__version__ = "0.0.1.4"
+
+class Color:
+
+	def red(text):
+		return f"\033[31m{text}\033[0m"
+
 class Hoky:
 
     def hk_lexer(__script__):
 
-        comnd = "output|def|print|pclass|input|if|for|import|readline".split("|")
+        comnd = ["output","def","print","pclass","input","if","for","import","readline"]
 
-        pycmnd = "return|def|print|class|input()|if|for|import|with".split("|")
+        pycmnd = ["return","def","print","class","input()","if","for","import","with"]
 
         content = ""
 
@@ -95,22 +103,32 @@ class Hoky:
                     content += f"{defs*'    '}{pycmnd[8]} open('{lexer[3]}', 'r') as {lexer[1]}{lexer[6].replace('{',':')}\n{defs2*'    '}for {lexer[5]} in {lexer[1]}:\n\n"
                     defs += 2
 
-            return content
+            exec(content)
 
     def hk_run(self):
 
-        if __script__ == "-ver":
+        countLine = 0
 
-            print("HVM for Python 0.0.1.3+")
+        if __script__ == "-version" or __script__ == "-v":
+
+            print(f"HVM for Python {__version__}")
+
+        elif __script__ == "--help" or __script__ == "-h":
+
+            print("How to run: python3 hoky.py file_name.hk")
 
         else:
 
-            script = Hoky.hk_lexer(__script__)
+            try:
 
-            file = open("rutime.py", "w")
-            file.write(script)
-            file.close()
+                Hoky.hk_lexer(__script__)
 
-            import rutime
+            except Exception as error:
+                print(f"[{Color.red('ERROR')}] - {error}")
+                print(f"In file: {__script__}")
+                print(f"In line {countLine}")
+                exit()
 
-Hoky.hk_run(self="")
+
+if __name__ == "__main__":
+    Hoky().hk_run()
