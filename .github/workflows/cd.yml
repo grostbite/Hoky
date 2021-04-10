@@ -27,12 +27,14 @@ jobs:
     
   publish:
     runs-on: ubuntu-latest
+    needs: lint
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Convert Docs
         run: |
+          sudo apt install pandoc
           pandoc -o docs.docx docs.md
       
       - name: Archive
