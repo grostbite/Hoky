@@ -17,10 +17,16 @@ class Color:
 
 class Hoky:
     def hk_lexer(__script__):
-        comnd = \
-            ["output", "def", "print", "pclass", "input", "if", "for", "import", "readline"]
-        pycmnd = \
-            ["return", "def", "print", "class", "input()","if", "for", "import", "with"]
+        comnd = [
+            "output", "def", "print",
+            "pclass", "input", "if",
+            "for", "import", "readline"
+        ]
+        pycmnd = [
+            "return", "def", "print",
+            "class", "input()", "if",
+            "for", "import", "with"
+        ]
 
         content = ""
 
@@ -87,7 +93,7 @@ class Hoky:
                 elif lexer[0] == comnd[6]:
                     content += f"{defs*'    '}{pycmnd[6]} {lexer[5]} in range({lexer[3]}){lexer[6].replace('{', ':')}\n"
                     if defs < 5:
-                        defs +=1
+                        defs += 1
                 elif lexer[0] == comnd[7]:
                     scripts = Hoky.hk_lexer(lexer[1].replace("\n", "") + ".hk")
                     content += scripts
