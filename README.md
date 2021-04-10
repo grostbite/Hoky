@@ -1,6 +1,6 @@
 # Hoky
 
-[![CI](https://github.com/alvinseville7cf/Hoky/actions/workflows/ci.yml/badge.svg)](https://github.com/alvinseville7cf/Hoky/actions/workflows/ci.yml) [![GitHub issues](https://img.shields.io/github/issues/grostbite/Hoky.svg)](https://github.com/grostbite/Hoky/issues) [![GitHub issues](https://img.shields.io/github/issues-closed/grostbite/Hoky.svg)](https://github.com/grostbite/Hoky/issues?q=is%3Aissue+is%3Aclosed) [![GitHub release](https://img.shields.io/github/release/grostbite/Hoky.svg)](https://GitHub.com/grostbite/Hoky/releases/) [![GitHub license](https://img.shields.io/github/license/grostbite/Hoky.svg)](https://github.com/grostbite/Hoky/blob/master/LICENSE)
+[![CI](https://github.com/grostbite/Hoky/actions/workflows/ci.yml/badge.svg)](https://github.com/grostbite/Hoky/actions/workflows/ci.yml) [![GitHub issues](https://img.shields.io/github/issues/grostbite/Hoky.svg)](https://github.com/grostbite/Hoky/issues) [![GitHub issues](https://img.shields.io/github/issues-closed/grostbite/Hoky.svg)](https://github.com/grostbite/Hoky/issues?q=is%3Aissue+is%3Aclosed) [![GitHub release](https://img.shields.io/github/release/grostbite/Hoky.svg)](https://GitHub.com/grostbite/Hoky/releases/) [![GitHub license](https://img.shields.io/github/license/grostbite/Hoky.svg)](https://github.com/grostbite/Hoky/blob/master/LICENSE)
 
 Hoky is a Russian programming language.
 
