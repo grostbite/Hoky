@@ -21,3 +21,8 @@ jobs:
           npm install -g markdownlint-cli
           shopt -s globstar
           markdownlint **/*.md
+      - name: Python Check
+        run: |
+          sudo apt install -y flake8
+          shopt -s globstar
+          flake8 **/*.py
