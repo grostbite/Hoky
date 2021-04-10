@@ -19,4 +19,5 @@ jobs:
         run: |
           sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
           npm install -g markdownlint-cli
-          markdownlint *.md
+          shopt -s globstar
+          markdownlint **/*.md
