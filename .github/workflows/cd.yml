@@ -1,0 +1,52 @@
+name: CD
+
+on:
+  push:
+    tags: 'v*'
+
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Markdown Check
+        run: |
+          sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
+          npm install -g markdownlint-cli
+          shopt -s globstar
+          markdownlint -- **/*.md
+      - name: Python Check
+        run: |
+          sudo apt install -y flake8
+          shopt -s globstar
+          flake8 --show-source -- **/*.py
+    
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Convert Docs
+        run: |
+          pandoc -o docs.docx docs.md
+      
+      - name: Archive
+        run: |
+          tar -cf release.tar docs.docx hoky.py
+
+      - name: Environment Variable Setup
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: Publish to GitHub
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${{ env.RELEASE_VERSION }}"
+          prerelease: false
+          title: "${{ env.RELEASE_VERSION }} Build"
+          files: release.tar
