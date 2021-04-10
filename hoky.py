@@ -63,26 +63,26 @@ class Hoky:
                     if lexer[1] == "=":
                         string = ""
                         for x in range(count):
-                            string += lexer[x]+" "
+                            string += lexer[x] + " "
                         content += f"{defs*'    '}{string.replace(';', '')}\n"
                     elif lexer[1] == "+=":
                         string = ""
                         for x in range(count):
-                            string += lexer[x]+" "
+                            string += lexer[x] + " "
                         content += \
-                            f"{defs*'    '}{string.replace(';', '')}\n"
+                            f"{defs * '    '}{string.replace(';', '')}\n"
 
                 if lexer[0] == comnd[2]:
                     content += \
-                        "{}{}({})\n".format(defs*"    ", pycmnd[2], lexer[1].replace("\n", ""))
+                        "{}{}({})\n".format(defs * "    ", pycmnd[2], lexer[1].replace("\n", ""))
                 elif lexer[0] == comnd[3]:
                     defs = 1
                     defs2 += 1
                     content += \
-                        pycmnd[3]+" " + lexer[1].replace("\n", "") + "" + lexer[2].replace("{", ":") + "\n"
+                        pycmnd[3] + " " + lexer[1].replace("\n", "") + "" + lexer[2].replace("{", ":") + "\n"
                 elif lexer[0] == comnd[4]:
                     content += \
-                        "{}{} = {}\n".format(defs*'    ', lexer[1].replace("\n", ""), pycmnd[4])
+                        "{}{} = {}\n".format(defs * '    ', lexer[1].replace("\n", ""), pycmnd[4])
                 elif lexer[0] == comnd[5]:
                     content += \
                         f"{defs*'    '}{pycmnd[5]} {lexer[1]} {lexer[2]} {lexer[3]} {lexer[4].replace('{', ':')}\n"
