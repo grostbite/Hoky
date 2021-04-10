@@ -20,9 +20,9 @@ jobs:
           sudo chown -R $(whoami) /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
           npm install -g markdownlint-cli
           shopt -s globstar
-          markdownlint **/*.md
+          markdownlint -- **/*.md
       - name: Python Check
         run: |
           sudo apt install -y flake8
           shopt -s globstar
-          flake8 **/*.py
+          flake8 --show-source -- **/*.py
