@@ -9,14 +9,24 @@ __script__ = sys.argv[1]
 
 __version__ = "0.0.1.4"
 
+
 class Color:
-	def red(text):
-		return f"\033[31m{text}\033[0m"
+    def red(text):
+        return f"\033[31m{text}\033[0m"
+
 
 class Hoky:
     def hk_lexer(__script__):
-        comnd = ["output","def","print","pclass","input","if","for","import","readline"]
-        pycmnd = ["return","def","print","class","input()","if","for","import","with"]
+        comnd = [
+            "output", "def", "print",
+            "pclass", "input", "if",
+            "for", "import", "readline"
+        ]
+        pycmnd = [
+            "return", "def", "print",
+            "class", "input()", "if",
+            "for", "import", "with"
+        ]
 
         content = ""
 
@@ -53,38 +63,44 @@ class Hoky:
                     if lexer[1] == "=":
                         string = ""
                         for x in range(count):
-                            string += lexer[x]+" "
-                        content += f"{defs*'    '}{string.replace(';','')}\n"
+                            string += lexer[x] + " "
+                        content += f"{defs*'    '}{string.replace(';', '')}\n"
                     elif lexer[1] == "+=":
                         string = ""
                         for x in range(count):
-                            string += lexer[x]+" "
-                        content += f"{defs*'    '}{string.replace(';','')}\n"
+                            string += lexer[x] + " "
+                        content += \
+                            f"{defs * '    '}{string.replace(';', '')}\n"
 
                 if lexer[0] == comnd[2]:
-                    content += "{}{}({})\n".format(defs*"    ",pycmnd[2],lexer[1].replace("\n",""))
+                    content += \
+                        "{}{}({})\n".format(defs * "    ", pycmnd[2], lexer[1].replace("\n", ""))
                 elif lexer[0] == comnd[3]:
                     defs = 1
                     defs2 += 1
-                    content += pycmnd[3]+" " + lexer[1].replace("\n", "") + ""+ lexer[2].replace("{", ":") + "\n"
+                    content += \
+                        pycmnd[3] + " " + lexer[1].replace("\n", "") + "" + lexer[2].replace("{", ":") + "\n"
                 elif lexer[0] == comnd[4]:
-                    content += "{}{} = {}\n".format(defs*'    ', lexer[1].replace("\n", ""), pycmnd[4])
+                    content += \
+                        "{}{} = {}\n".format(defs * '    ', lexer[1].replace("\n", ""), pycmnd[4])
                 elif lexer[0] == comnd[5]:
-                    content += f"{defs*'    '}{pycmnd[5]} {lexer[1]} {lexer[2]} {lexer[3]} {lexer[4].replace('{',':')}\n"
+                    content += \
+                        f"{defs*'    '}{pycmnd[5]} {lexer[1]} {lexer[2]} {lexer[3]} {lexer[4].replace('{', ':')}\n"
                     if defs < 4 and defs > 0:
                         defs += 1
                     elif defs == 0:
                         defs = 1
                 elif lexer[0] == comnd[6]:
-                    content += f"{defs*'    '}{pycmnd[6]} {lexer[5]} in range({lexer[3]}){lexer[6].replace('{',':')}\n"
+                    content += f"{defs*'    '}{pycmnd[6]} {lexer[5]} in range({lexer[3]}){lexer[6].replace('{', ':')}\n"
                     if defs < 5:
-                        defs +=1
+                        defs += 1
                 elif lexer[0] == comnd[7]:
-                    scripts = Hoky.hk_lexer(lexer[1].replace("\n","") + ".hk")
+                    scripts = Hoky.hk_lexer(lexer[1].replace("\n", "") + ".hk")
                     content += scripts
                 elif lexer[0] == comnd[8]:
                     defs2 += 1
-                    content += f"{defs*'    '}{pycmnd[8]} open('{lexer[3]}', 'r') as {lexer[1]}{lexer[6].replace('{',':')}\n{defs2*'    '}for {lexer[5]} in {lexer[1]}:\n\n"
+                    content += \
+                        f"{defs*'    '}{pycmnd[8]} open('{lexer[3]}', 'r') as {lexer[1]}{lexer[6].replace('{',':')}\n{defs2*'    '}for {lexer[5]} in {lexer[1]}:\n\n"
                     defs += 2
 
             exec(content)
